@@ -1,0 +1,108 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+<style type="text/css">
+
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  box-sizing: border-box
+}
+
+h1 {
+    text-align: center;
+    padding-top: 30px;
+    background-color: darkseagreen;
+    height: 100px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#label_lat,
+#label_long,
+#lat_origem,
+#long_origem {
+    
+    display: block;
+    padding: 5px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+}
+
+#label_lat {
+    margin-top: 40px;
+}
+
+#label_long {
+    margin-top: 30px;
+}
+
+#lat_origem,
+#long_origem {
+    border: 200px;
+    border-radius: 10px;
+    position: relative;
+    left: 550px;
+}
+
+#buscar {
+    font-family: 'Montserrat', sans-serif;
+    background-color: lightgreen;
+    font-weight: bold;
+    border-radius: 10px;
+    height: 40px;
+    width: 80px;
+    position: relative;
+    left: 600px;
+    margin: 30px 0 30px 0;
+}
+
+#formData {
+    text-align: center;
+}
+
+</style>
+
+<h1>WAZE</h1>
+<div class="row-center">
+</div>
+
+<div class="row">
+
+    <form>
+        <div>
+            <div>
+                <label for="lat_origem" id="label_lat">Latitude</label>
+                <input placeholder="Insira a latitude" id="lat_origem" type="text">
+            </div>
+
+            <div>
+                <label for="long_origem" id="label_long">Longitude</label>
+                <input placeholder="Insira a longitude" id="long_origem" type="text">
+            </div>
+        </div>
+
+        <div>
+            <button id="buscar">Buscar</button>
+        </div>
+    </form>
+
+</div>
+
+<div id="formData">
+</div>
+
+    <script type=text/javascript>
+        $(function() {
+            $('#buscar').bind('click', function () {
+                $.post('/wazePost', {
+                    latitude: $('#lat_origem').val(),
+                        longitude: $('#long_origem').val(),
+                }, function (data) {
+                  $('#formData').append(data.result);
+                });
+                return false;
+            });
+        });
+    </script>
